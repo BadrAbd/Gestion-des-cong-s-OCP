@@ -2,8 +2,8 @@
     <div class="container-fluid">
         {{-- Logo --}}
         <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-            <img src="{{ asset('images/logo.svg') }}" alt="Sneat" height="30" class="me-2">
-            <span class="fw-bold">sneat</span>
+            <img src="{{ asset('images/OCP Group.png') }}" alt="OCP" height="30" class="me-2">
+            <span class="fw-bold">OCP</span>
         </a>
 
         {{-- Navbar items aligned to the right --}}
