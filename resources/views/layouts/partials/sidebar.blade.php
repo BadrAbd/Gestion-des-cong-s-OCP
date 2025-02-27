@@ -6,7 +6,7 @@
         </a>
     </li>
     
-    <li class="nav-item">
+    <!--<li class="nav-item">
         <a class="nav-link {{ Request::is('profile') ? '' : 'collapsed' }}" href="{{ url('profile') }}">
             <i class="bi bi-person"></i>
             <span>Profile</span>
@@ -32,7 +32,7 @@
             <i class="bi bi-envelope"></i>
             <span>Contact</span>
         </a>
-    </li>
+    </li> -->
 
     <li class="nav-item">
         <a class="nav-link {{ Request::is('faq') ? '' : 'collapsed' }}" href="{{ url('faq') }}">
