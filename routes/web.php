@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\InterimController;
+
 
 Route::get('/', function () {
     return view('form');
@@ -32,3 +34,10 @@ Route::get('/register', function () {
 
 // User profile
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+// FAQ page
+Route::get('/faq', function () {
+    return view('pages.faq');
+})->name('faq');
+
+
+Route::post('/interim', [InterimController::class, 'store'])->name('interim.store');
