@@ -39,5 +39,5 @@ Route::get('/faq', function () {
     return view('pages.faq');
 })->name('faq');
 
-
+//InterimConrtoller
 Route::post('/interim', [InterimController::class, 'store'])->name('interim.store');

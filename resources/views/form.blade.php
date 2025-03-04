@@ -48,6 +48,16 @@
                             <label for="interim" class="form-label">Intérim</label>
                             <input type="text" class="form-control" id="interim" name="interim" required>
                         </div>
+                        <div class="mb-4">
+                            <label for="signature" class="block mb-2">Signature</label>
+                            <div id="signature-pad" class="border border-gray-300 rounded p-2" style="height: 150px; width: 100%;">
+                                <canvas id="signature-canvas" style="width: 100%; height: 100%;"></canvas>
+                            </div>
+                            <div class="mt-2 flex space-x-2">
+                                <button type="button" id="clear-signature" class="px-3 py-1 bg-gray-200 rounded text-sm">Effacer</button>
+                                <input type="hidden" id="signature-data" name="signature">
+                            </div>
+                        </div>
 
                         <div class="text-end">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
@@ -58,4 +68,22 @@
         </div>
     </div>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var canvas = document.getElementById('signature-canvas');
+        var signaturePad = new SignaturePad(canvas);
+
+        document.getElementById('clear-signature').addEventListener('click', function () {
+            signaturePad.clear();
+        });
+
+        document.getElementById('interim-form').addEventListener('submit', function (e) {
+            if (!signaturePad.isEmpty()) {
+                var dataURL = signaturePad.toDataURL();
+                document.getElementById('signature-data').value = dataURL;
+            }
+        });
+    });
+</script>
 @endsection
