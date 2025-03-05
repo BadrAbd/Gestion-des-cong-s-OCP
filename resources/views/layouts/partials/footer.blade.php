@@ -2,5 +2,5 @@
     &copy; Copyright <strong><span>OCP</span></strong>. All Rights Reserved
 </div>
 <div class="credits">
-    Designed Badr Abdelkhaleq & Achraf El Ayoubi
+    Designed By Badr Abdelkhaleq & Achraf El Ayoubi
 </div>
