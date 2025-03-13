@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class DemandeConge extends Model
 {
+    use HasFactory;
     protected $table = 'demande_conges';
 
     protected $fillable = [
@@ -23,6 +25,15 @@ class DemandeConge extends Model
         'date_debut' => 'date',
         'date_fin' => 'date',
     ];
+    protected static function booted()
+    {
+        static::creating(function ($demandeConge) {
+            // Set user_id to current authenticated user if not already set
+            if (!$demandeConge->user_id) {
+                $demandeConge->user_id = Auth::id() ?? 1; // Fallback to 1 if not authenticated
+            }
+        });
+    }
 
     public function user()
     {

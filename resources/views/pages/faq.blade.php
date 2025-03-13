@@ -15,6 +15,19 @@
 
     <section class="section faq">
         <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Frequently Asked Questions</h5>
+                        <p>Cette page est actuellement vide. Revenez plus tard pour plus d'informations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<!--
+    <section class="section faq">
+        <div class="row">
             <div class="col-lg-6">
                 <div class="card basic">
                     <div class="card-body">
@@ -34,7 +47,7 @@
                     </div>
                 </div>
 
-                <!-- F.A.Q Group 1 -->
+                
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Laborum dolorem quam porro</h5>
@@ -101,11 +114,11 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- End F.A.Q Group 1 -->
+                </div>
             </div>
 
             <div class="col-lg-6">
-                <!-- F.A.Q Group 2 -->
+               
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Deserunt ut unde corporis</h5>
@@ -172,9 +185,8 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- End F.A.Q Group 2 -->
+                </div>
 
-                <!-- F.A.Q Group 3 -->
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Dolore occaecati ducimus quam</h5>
@@ -241,9 +253,10 @@
                             </div>
                         </div>
                     </div>
-                </div><!-- End F.A.Q Group 3 -->
+                </div>
             </div>
         </div>
     </section>
-</main><!-- End #main -->
+</main>
+ -->
 @endsection

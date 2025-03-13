@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container mt-5">
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -9,7 +14,7 @@
                     <h4 class="mb-0">Formulaire d'Intérim</h4>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('interim.store') }}" method="POST">
+                    <form action="{{ route('interim.store') }}" method="POST" id="interim-form">
                         @csrf
                         
                         <div class="mb-3">
@@ -48,6 +53,7 @@
                             <label for="interim" class="form-label">Intérim</label>
                             <input type="text" class="form-control" id="interim" name="interim" required>
                         </div>
+
                         <div class="mb-4">
                             <label for="signature" class="block mb-2">Signature</label>
                             <div id="signature-pad" class="border border-gray-300 rounded p-2" style="height: 150px; width: 100%;">
@@ -55,7 +61,7 @@
                             </div>
                             <div class="mt-2 flex space-x-2">
                                 <button type="button" id="clear-signature" class="px-3 py-1 bg-gray-200 rounded text-sm">Effacer</button>
-                                <input type="hidden" id="signature-data" name="signature">
+                                <input type="hidden" id="signature-data" name="signature" required>
                             </div>
                         </div>
 
@@ -68,7 +74,10 @@
         </div>
     </div>
 </div>
+
+<!-- Include the signature_pad library -->
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var canvas = document.getElementById('signature-canvas');
@@ -79,7 +88,10 @@
         });
 
         document.getElementById('interim-form').addEventListener('submit', function (e) {
-            if (!signaturePad.isEmpty()) {
+            if (signaturePad.isEmpty()) {
+                alert('Veuillez fournir une signature.');
+                e.preventDefault();
+            } else {
                 var dataURL = signaturePad.toDataURL();
                 document.getElementById('signature-data').value = dataURL;
             }

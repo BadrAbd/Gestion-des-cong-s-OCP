@@ -2,7 +2,7 @@
     <li class="nav-item">
         <a class="nav-link {{ Request::is('/') ? '' : 'collapsed' }}" href="{{ url('/') }}">
             <i class="bi bi-grid"></i>
-            <span>Form</span>
+            <span>Nouvelle demande de congé</span>
         </a>
     </li>
     

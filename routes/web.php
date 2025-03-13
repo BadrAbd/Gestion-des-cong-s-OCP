@@ -40,4 +40,5 @@ Route::get('/faq', function () {
 })->name('faq');
 
 //InterimConrtoller
+Route::get('/interim', [InterimController::class, 'create'])->name('interim.create');
 Route::post('/interim', [InterimController::class, 'store'])->name('interim.store');
