@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class DemandeConge extends Model
 {
@@ -30,7 +31,7 @@ class DemandeConge extends Model
         static::creating(function ($demandeConge) {
             // Set user_id to current authenticated user if not already set
             if (!$demandeConge->user_id) {
-                $demandeConge->user_id = Auth::id() ?? 1; // Fallback to 1 if not authenticated
+                $demandeConge->user_id = Auth::id() ?? null; // Fallback to NULL if not authenticated
             }
         });
     }

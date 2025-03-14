@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('demande_conges', function (Blueprint $table) {
-             $table->unsignedBigInteger('user_id')->nullable()->change();
+            $table->unsignedBigInteger('user_id')->nullable()->change();
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('nom');

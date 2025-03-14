@@ -41,7 +41,7 @@ class InterimController extends Controller
             'date_fin' => $request->date_fin,
             'interim' => $request->interim,
             'signature_image' => $signaturePath, // Sauvegarder le chemin de l'image de la signature
-            'status' => 'pending', // Par exemple, définir un statut initial
+            'status' => 'En attente', // Par exemple, définir un statut initial
         ]);
 
         // Redirect back with a success message
