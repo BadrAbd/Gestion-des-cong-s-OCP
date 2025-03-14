@@ -26,7 +26,7 @@ class InterimController extends Controller
         $signatureData = str_replace(' ', '+', $signatureData);
         $signatureImage = base64_decode($signatureData);
         $signaturePath = 'signatures/' . uniqid() . '.png';
-        Storage::disk('public')->put($signaturePath, $signatureImage);
+        Storage::disk('private')->put($signaturePath, $signatureImage);
 
         // Handle the form submission logic (e.g., save to database)
         // Example:

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InterimController;
-
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', function () {
     return view('form');
@@ -42,3 +42,12 @@ Route::get('/faq', function () {
 //InterimConrtoller
 Route::get('/interim/create', [InterimController::class, 'create'])->name('interim.create');
 Route::post('/interim', [InterimController::class, 'store'])->name('interim.store');
+
+Route::get('/signature/{path}', function ($path) {
+    $filePath = 'signatures/' . $path;
+
+    if (!Storage::disk('private')->exists($filePath)) {
+        abort(404);
+    }
+    return response()->file(storage_path('app/private/' . $filePath));
+})->where('path', '.*')->name('signature.show');
