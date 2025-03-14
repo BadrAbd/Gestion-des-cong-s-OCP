@@ -16,7 +16,7 @@ class InterimController extends Controller
             'prenom' => 'required|string|max:255',
             'service' => 'required|string',
             'date_debut' => 'required|date',
-            'date_fin' => 'required|date',
+            'date_fin' => 'required|date|after:date_debut',
             'interim' => 'required|string|max:255',
             'signature' => 'required|string',
         ]);
@@ -45,6 +45,6 @@ class InterimController extends Controller
         ]);
 
         // Redirect back with a success message
-        return redirect()->back()->with('success', 'Form submitted successfully!');
+        return redirect()->back()->with('success', 'Votre demande a été bien enregistrée.');
     }
 }

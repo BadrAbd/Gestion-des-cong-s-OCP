@@ -3,12 +3,12 @@
 @section('content')
 <main id="main" class="main">
     <div class="pagetitle">
-        <h1>Frequently Asked Questions</h1>
+        <h1>Questions fréquemment posées</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <!--<li class="breadcrumb-item"><a href="index.html">Home</a></li>-->
                 <li class="breadcrumb-item">Pages</li>
-                <li class="breadcrumb-item active">Frequently Asked Questions</li>
+                <li class="breadcrumb-item active">Questions fréquemment posées</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -18,7 +18,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Frequently Asked Questions</h5>
+                        <h5 class="card-title">Questions fréquemment posées</h5>
                         <p>Cette page est actuellement vide. Revenez plus tard pour plus d'informations.</p>
                     </div>
                 </div>

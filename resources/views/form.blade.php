@@ -79,12 +79,34 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
 
 <script>
+    
     document.addEventListener('DOMContentLoaded', function () {
         var canvas = document.getElementById('signature-canvas');
         var signaturePad = new SignaturePad(canvas);
 
         document.getElementById('clear-signature').addEventListener('click', function () {
             signaturePad.clear();
+        });
+        document.getElementById('interim-form').addEventListener('submit', function (e) {
+            // Get the date values
+            var dateDebut = document.getElementById('date_debut').value;
+            var dateFin = document.getElementById('date_fin').value;
+
+            // Check if the end date is greater than the start date
+            if (new Date(dateFin) <= new Date(dateDebut)) {
+                alert('La date de fin doit être supérieure à la date de début.');
+                e.preventDefault(); // Prevent form submission
+                return;
+            }
+
+            // Check if the signature is empty
+            if (signaturePad.isEmpty()) {
+                alert('Veuillez fournir une signature.');
+                e.preventDefault();
+            } else {
+                var dataURL = signaturePad.toDataURL();
+                document.getElementById('signature-data').value = dataURL;
+            }
         });
 
         document.getElementById('interim-form').addEventListener('submit', function (e) {
