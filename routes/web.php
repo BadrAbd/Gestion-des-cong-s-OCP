@@ -42,6 +42,8 @@ Route::get('/faq', function () {
 //InterimConrtoller
 Route::get('/interim/create', [InterimController::class, 'create'])->name('interim.create');
 Route::post('/interim', [InterimController::class, 'store'])->name('interim.store');
+// Route pour générer le PDF d'une demande d'intérim
+Route::get('/interim/{id}/pdf', [InterimController::class, 'generatePdf'])->name('interim.pdf');
 
 Route::get('/signature/{path}', function ($path) {
     $filePath = 'signatures/' . $path;
