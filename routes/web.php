@@ -23,17 +23,24 @@ Route::get('/contact', function () {
     return view('pages.contact');
 });
 
-// Authentication pages
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Authentication routes
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/register', [LoginController::class, 'showRegistrationForm'])->name('register');
+    Route::post('/register', [LoginController::class, 'register']);
+});
 
-Route::get('/register', function () {
-    return view('pages.register');
-})->name('register');
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    
+    // Profile routes
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+});
 
-// User profile
-Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 // FAQ page
 Route::get('/faq', function () {
     return view('pages.faq');

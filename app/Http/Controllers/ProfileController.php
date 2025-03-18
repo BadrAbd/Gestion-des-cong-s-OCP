@@ -8,15 +8,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
+    /**
+     * Display the user's profile.
+     */
+    public function show(Request $request): View
+    {
+        return view('pages.profile', [
+            'user' => $request->user(),
+        ]);
+    }
+
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
+        return view('pages.profile.edit', [
             'user' => $request->user(),
         ]);
     }
@@ -34,7 +46,24 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.show')->with('status', 'profile-updated');
+    }
+
+    /**
+     * Update the user's password.
+     */
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'confirmed', Password::defaults()],
+        ]);
+
+        $request->user()->update([
+            'password' => Hash::make($validated['password']),
+        ]);
+
+        return Redirect::route('profile.show')->with('status', 'password-updated');
     }
 
     /**
@@ -47,11 +76,8 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
-
         Auth::logout();
-
         $user->delete();
-
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
