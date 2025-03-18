@@ -79,10 +79,6 @@
                             </form>
                         </div>
                     </div>
-
-                    <div class="credits">
-                        Designed by Badr Abdelkhaleq & Achraf El Ayoubi
-                    </div>
                 </div>
             </div>
         </div>

@@ -73,10 +73,7 @@
                         </div>
 
                         <div class="text-end">
-                            <button type="submit" class="btn btn-primary me-2">Enregistrer</button>
-                            <button type="submit" name="download_pdf" value="1" class="btn btn-success">
-                                <i class="fas fa-file-pdf"></i> Enregistrer et télécharger PDF
-                            </button>
+                            <button type="submit" class="btn btn-primary me-2">Enregistrer</button>  
                         </div>
                     </form>
                 </div>
