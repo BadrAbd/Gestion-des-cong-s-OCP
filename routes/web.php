@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InterimController;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
     return view('form');
@@ -60,3 +61,9 @@ Route::get('/signature/{path}', function ($path) {
     }
     return response()->file(storage_path('app/private/' . $filePath));
 })->where('path', '.*')->name('signature.show');
+
+// Routes d'administration
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/demandes', [AdminController::class, 'index'])->name('demandes');
+    Route::post('/demandes/{demande}/status', [AdminController::class, 'updateStatus'])->name('demandes.update-status');
+});

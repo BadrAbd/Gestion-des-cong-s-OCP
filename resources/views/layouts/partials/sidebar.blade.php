@@ -7,6 +7,15 @@
     </li>
     
     @auth
+    @if(auth()->user()->is_admin)
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('admin/demandes*') ? '' : 'collapsed' }}" href="{{ route('admin.demandes') }}">
+            <i class="bi bi-list-check"></i>
+            <span>Gestion des demandes</span>
+        </a>
+    </li>
+    @endif
+
     <li class="nav-item">
         <a class="nav-link {{ Request::is('profile*') ? '' : 'collapsed' }}" href="{{ route('profile') }}">
             <i class="bi bi-person"></i>
