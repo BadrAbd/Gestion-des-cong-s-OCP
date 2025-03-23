@@ -26,12 +26,12 @@
                                 @csrf
                                 
                                 <div class="col-12">
-                                    <label for="yourUsername" class="form-label">Nom d'utilisateur</label>
+                                    <label for="yourEmail" class="form-label">Email</label>
                                     <div class="input-group has-validation">
                                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" 
-                                               id="yourUsername" value="{{ old('username') }}" required>
-                                        @error('username')
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                                               id="yourEmail" value="{{ old('email') }}" required>
+                                        @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>

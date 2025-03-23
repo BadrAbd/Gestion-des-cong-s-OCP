@@ -12,7 +12,13 @@ class User extends Authenticatable
     protected $fillable = [
         'nom',
         'prenom',
+        'email',
         'service_id',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
     ];
 
     public function service()
@@ -30,4 +36,3 @@ class User extends Authenticatable
         return $this->hasMany(DemandeConge::class);
     }
 }
-

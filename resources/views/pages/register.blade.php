@@ -25,31 +25,37 @@
                             <form class="row g-3 needs-validation" action="{{ route('register') }}" method="POST" novalidate>
                                 @csrf
                                 <div class="col-12">
-                                    <label for="yourName" class="form-label">Votre nom</label>
+                                    <label for="yourName" class="form-label">Nom</label>
                                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="yourName" required>
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
-                                <div class="col-12">
-                                    <label for="yourEmail" class="form-label">Votre Email</label>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="yourEmail" required>
-                                    @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-
-                                <div class="col-12">
-                                    <label for="yourUsername" class="form-label">Nom d'utilisateur</label>
+                                
+                                 <div class="col-12">
+                                    <label for="yourPrenom" class="form-label">Prenom</label>
                                     <div class="input-group has-validation">
-                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                        <input type="text" name="username" class="form-control @error('username') is-invalid @enderror" id="yourUsername" required>
-                                        @error('username')
+                                         
+                                        <input type="text" name="prenom" class="form-control @error('prenom') is-invalid @enderror" id="yourPrenom" required>
+                                        @error('prenom')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> 
+
+       
+
+                                <div class="col-12">
+                                    <label for="yourEmail" class="form-label">Votre Email</label>
+                                    <div class="input-group has-validation">
+                                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="yourEmail" required>
+                                        @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                </div> 
 
                                 <div class="col-12">
                                     <label for="yourPassword" class="form-label">Mot de passe</label>
@@ -60,6 +66,14 @@
                                 </div>
 
                                 <div class="col-12">
+                                    <label for="password_confirmation" class="form-label">Confirmer le mot de passe</label>
+                                    <input type="password" name="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" required>
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+
+                                <!-- <div class="col-12">
                                     <div class="form-check">
                                         <input class="form-check-input @error('terms') is-invalid @enderror" name="terms" type="checkbox" value="" id="acceptTerms" required>
                                         <label class="form-check-label" for="acceptTerms">Je suis d'accord et j'accepte les <a href="#">termes et conditions</a></label>
@@ -67,7 +81,7 @@
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-12">
                                     <button class="btn btn-primary w-100" type="submit">Créer un compte</button>

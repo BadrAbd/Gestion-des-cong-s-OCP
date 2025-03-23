@@ -7,24 +7,12 @@ use App\Http\Controllers\InterimController;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AdminController;
 
-Route::get('/', function () {
-    return view('form');
-});
+// Public routes
+Route::get('/faq', function () {
+    return view('pages.faq');
+})->name('faq');
 
-Route::post('/interim', function () {
-    // Handle form submission here
-    return redirect()->back()->with('success', 'Form submitted successfully!');
-})->name('interim.store');
-
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
-
-Route::get('/contact', function () {
-    return view('pages.contact');
-});
-
-// Authentication routes
+// Guest-only routes (not accessible when logged in)
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
@@ -32,7 +20,22 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [LoginController::class, 'register']);
 });
 
+// Protected routes (require authentication)
 Route::middleware('auth')->group(function () {
+    // Home and basic pages
+    Route::get('/', function () {
+        return view('form');
+    });
+    
+    Route::get('/home', function () {
+        return view('home');
+    })->name('home');
+    
+    Route::get('/contact', function () {
+        return view('pages.contact');
+    });
+    
+    // Authentication
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     
     // Profile routes
@@ -40,29 +43,24 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
+    
+    // Interim routes
+    Route::get('/interim/create', [InterimController::class, 'create'])->name('interim.create');
+    Route::post('/interim', [InterimController::class, 'store'])->name('interim.store');
+    Route::get('/interim/{id}/pdf', [InterimController::class, 'generatePdf'])->name('interim.pdf');
+    
+    // Signature route
+    Route::get('/signature/{path}', function ($path) {
+        $filePath = 'signatures/' . $path;
+
+        if (!Storage::disk('private')->exists($filePath)) {
+            abort(404);
+        }
+        return response()->file(storage_path('app/private/' . $filePath));
+    })->where('path', '.*')->name('signature.show');
 });
 
-// FAQ page
-Route::get('/faq', function () {
-    return view('pages.faq');
-})->name('faq');
-
-//InterimConrtoller
-Route::get('/interim/create', [InterimController::class, 'create'])->name('interim.create');
-Route::post('/interim', [InterimController::class, 'store'])->name('interim.store');
-// Route pour générer le PDF d'une demande d'intérim
-Route::get('/interim/{id}/pdf', [InterimController::class, 'generatePdf'])->name('interim.pdf');
-
-Route::get('/signature/{path}', function ($path) {
-    $filePath = 'signatures/' . $path;
-
-    if (!Storage::disk('private')->exists($filePath)) {
-        abort(404);
-    }
-    return response()->file(storage_path('app/private/' . $filePath));
-})->where('path', '.*')->name('signature.show');
-
-// Routes d'administration
+// Admin routes (require authentication and admin role)
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/demandes', [AdminController::class, 'index'])->name('demandes');
     Route::post('/demandes/{demande}/status', [AdminController::class, 'updateStatus'])->name('demandes.update-status');

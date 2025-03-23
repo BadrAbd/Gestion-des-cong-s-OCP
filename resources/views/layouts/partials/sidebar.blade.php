@@ -16,12 +16,12 @@
     </li>
     @endif
 
-    <li class="nav-item">
+    {{-- <li class="nav-item">
         <a class="nav-link {{ Request::is('profile*') ? '' : 'collapsed' }}" href="{{ route('profile') }}">
             <i class="bi bi-person"></i>
             <span>Profile</span>
         </a>
-    </li>
+    </li> --}}
 
     <li class="nav-item">
         <form method="POST" action="{{ route('logout') }}" class="d-inline">

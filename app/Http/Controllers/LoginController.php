@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rule;
 
 class LoginController extends Controller
 {
@@ -17,19 +18,19 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->validate([
+        $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
             return redirect()->intended('home');
         }
 
         return back()->withErrors([
-            'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-        ])->onlyInput('email');
+            'email' => 'L\'adresse email fournis avec le mot de passe ne correspondent pas à nos enregistrements.',
+        ]);
     }
 
     public function showRegistrationForm()
@@ -41,19 +42,23 @@ class LoginController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'prenom' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::defaults()],
+            'password_confirmation' => ['required'],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'nom' => $request->name,
+            'prenom'=> $request->prenom,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
         Auth::login($user);
 
-        return redirect()->route('home');
+
+        return redirect()->intended('home');
     }
 
     public function logout(Request $request)
