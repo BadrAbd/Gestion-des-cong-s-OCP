@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="mb-0">Gestion des Demandes</h2>
+                    <h2 class="mb-0">Demandes de Congés</h2>
                 </div>
 
                 <div class="card-body">
@@ -26,40 +26,44 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Date de création</th>
+                                    <th>Employé</th>
+                                    <th>Service</th>
+                                    <th>Date de début</th>
+                                    <th>Date de fin</th>
+                                    <th>Type de congé</th>
                                     <th>Statut</th>
-                                    <th>Commentaire Admin</th>
-                                    <th>Actions</th>
+                                    @if(auth()->user()->is_admin)
+                                        <th>Actions</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($demandes as $demande)
                                     <tr>
-                                        <td>{{ $demande->id }}</td>
-                                        <td>{{ $demande->created_at->format('d/m/Y H:i') }}</td>
+                                        <td>{{ $demande->user->nom }} {{ $demande->user->prenom }}</td>
+                                        <td>{{ $demande->user->service->nom }}</td>
+                                        <td>{{ $demande->date_debut->format('d/m/Y') }}</td>
+                                        <td>{{ $demande->date_fin->format('d/m/Y') }}</td>
+                                        <td>{{ $demande->type_conge }}</td>
                                         <td>
                                             <span class="badge bg-{{ $demande->status === 'approved' ? 'success' : ($demande->status === 'rejected' ? 'danger' : 'warning') }}">
                                                 {{ $demande->status === 'approved' ? 'Approuvé' : ($demande->status === 'rejected' ? 'Rejeté' : 'En attente') }}
                                             </span>
                                         </td>
-                                        <td>{{ $demande->admin_comment ?? 'Aucun commentaire' }}</td>
-                                        <td>
-                                            @if($demande->status === 'pending')
-                                                <form action="{{ route('admin.demandes.update-status', $demande) }}" method="POST" class="d-inline">
+                                        @if(auth()->user()->is_admin && $demande->status === 'pending')
+                                            <td>
+                                                <form action="{{ route('demande-conges.update-status', $demande) }}" method="POST" class="d-inline">
                                                     @csrf
-                                                    <div class="input-group">
-                                                        <input type="text" name="comment" class="form-control form-control-sm" placeholder="Commentaire (optionnel)">
-                                                        <button type="submit" name="status" value="approved" class="btn btn-success btn-sm">
-                                                            <i class="fas fa-check"></i> Approuver
-                                                        </button>
-                                                        <button type="submit" name="status" value="rejected" class="btn btn-danger btn-sm">
-                                                            <i class="fas fa-times"></i> Rejeter
-                                                        </button>
-                                                    </div>
+                                                    @method('PATCH')
+                                                    <button type="submit" name="status" value="approved" class="btn btn-success btn-sm">
+                                                        <i class="fas fa-check"></i> Approuver
+                                                    </button>
+                                                    <button type="submit" name="status" value="rejected" class="btn btn-danger btn-sm">
+                                                        <i class="fas fa-times"></i> Rejeter
+                                                    </button>
                                                 </form>
-                                            @endif
-                                        </td>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

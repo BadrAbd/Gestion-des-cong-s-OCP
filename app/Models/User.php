@@ -15,10 +15,15 @@ class User extends Authenticatable
         'email',
         'service_id',
         'password',
+        'is_admin'
     ];
 
     protected $hidden = [
         'password',
+    ];
+
+    protected $casts = [
+        'is_admin' => 'boolean',
     ];
 
     public function service()
